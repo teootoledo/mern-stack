@@ -2,13 +2,17 @@
 
 const mongoose = require("mongoose");
 
-// Le digo que cree una base de datos llamada "mernstack"
-const URI = "mongodb://localhost/mernstack";
+// Le digo que cree una base de datos llamada "mernstack" (Esto está definido en .env por cuestiones de seguridad)
+// Si no existe el .env o no está bien configurado, crea una db llamada "databasetest"
+const URI = process.env.MONGODB_URI
+  ? process.env.MONGODB_URI
+  : "mongodb://localhost/databasetest";
 
 // Le paso la dirección a la que quiero que se conecte
 mongoose.connect(URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
+  useUnifiedTopology: true,
 });
 
 const connection = mongoose.connection;
