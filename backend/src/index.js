@@ -9,8 +9,9 @@ require("./database");
 // puedo usar "aync-await" (callbacks)
 
 async function main() {
-  await app.listen(4000);
-  console.log("Server on port 4000");
+  // Obtengo desde app definida en app.js el atributo port
+  await app.listen(app.get("port"));
+  console.log("Server on port", app.get("port"));
 }
 
 // Levanto el servidor llamando a main
