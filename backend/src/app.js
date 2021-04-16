@@ -14,7 +14,7 @@ app.use(express.json());
 // Routes
 
 // El método "use" utiliza otro archivo
-app.use("/api/users");
-app.use("/api/notes");
+app.use("/api/users", require("./routes/users"));
+app.use("/api/notes", require("./routes/notes"));
 
 module.exports = app;
