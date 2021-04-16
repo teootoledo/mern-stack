@@ -12,7 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.get("/api/users", (req, res) => res.send("Users Routes"));
-app.get("/api/notes", (req, res) => res.send("Notes Routes"));
+
+// El método "use" utiliza otro archivo
+app.use("/api/users");
+app.use("/api/notes");
 
 module.exports = app;
