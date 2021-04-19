@@ -1,15 +1,16 @@
 const { Router } = require("express");
 const router = Router();
 
-router
-  .route("/")
-  .get((req, res) => res.json({ message: [] }))
-  .post((req, res) => res.json({ message: "Note saved" }));
+const {
+  getNotes,
+  createNote,
+  getNote,
+  updateNote,
+  deleteNote,
+} = require("../controllers/notes.controller");
 
-router
-  .route("/:id")
-  .get((req, res) => res.json({ title: "This is a note title" }))
-  .put((req, res) => res.json({ message: "Note updated" }))
-  .delete((req, res) => res.json({ message: "Note deleted" }));
+router.route("/").get(getNotes).post(createNote);
+
+router.route("/:id").get(getNote).put(updateNote).delete(deleteNote);
 
 module.exports = router;
