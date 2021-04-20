@@ -30,8 +30,8 @@ export default class CreateNote extends Component {
       date: this.state.date,
       author: this.state.userSelected,
     };
-    const res = await axios.post("http://localhost:4000/api/notes", newNote);
-    console.log(res);
+    await axios.post("http://localhost:4000/api/notes", newNote);
+    window.location.href = "/";
   };
 
   onInputChange = (e) => {
