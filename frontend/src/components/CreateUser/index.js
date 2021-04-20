@@ -8,9 +8,7 @@ export default class CreateUser extends Component {
   };
 
   async componentDidMount() {
-    const res = await axios.get("http://localhost:4000/api/users");
-    this.setState({ users: res.data });
-    console.log(this.state.users);
+    this.getUsers();
   }
 
   onChangeUsername = (e) => {
@@ -19,20 +17,45 @@ export default class CreateUser extends Component {
     });
   };
 
+  onSubmit = async (e) => {
+    e.preventDefault(); //Evito que el formulario resetee la página
+    await axios.post("http://localhost:4000/api/users", {
+      username: this.state.username,
+    });
+    this.setState({
+      username: "",
+    });
+    this.getUsers();
+  };
+
+  getUsers = async () => {
+    const res = await axios.get("http://localhost:4000/api/users");
+    this.setState({ users: res.data });
+  };
+
+  deleteUser = async (id) => {
+    await axios.delete("http://localhost:4000/api/users/" + id);
+    this.getUsers();
+  };
+
   render() {
     return (
       <div className="row">
         <div className="col-md-4">
           <div className="card card-body">
             <h3>Create new user</h3>
-            <form>
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control"
                   onChange={this.onChangeUsername}
+                  value={this.state.username}
                 />
               </div>
+              <button type="submit" className="btn btn-primary">
+                Save
+              </button>
             </form>
           </div>
         </div>
@@ -42,6 +65,7 @@ export default class CreateUser extends Component {
               <li
                 className="list-group-item list-group-item-action"
                 key={user._id}
+                onDoubleClick={() => this.deleteUser(user._id)}
               >
                 {user.username}
               </li>
