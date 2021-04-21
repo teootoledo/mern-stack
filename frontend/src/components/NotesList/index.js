@@ -8,11 +8,20 @@ export default class NotesList extends Component {
   };
 
   async componentDidMount() {
+    this.getNotes();
+  }
+
+  getNotes = async () => {
     const res = await axios.get("http://localhost:4000/api/notes");
     this.setState({
       notes: res.data,
     });
-  }
+  };
+
+  deleteNote = async (id) => {
+    await axios.delete("http://localhost:4000/api/notes/" + id);
+    this.getNotes();
+  };
 
   render() {
     return (
@@ -25,11 +34,17 @@ export default class NotesList extends Component {
               </div>
               <div className="card-body">
                 <p>{note.content}</p>
-              </div>
-              <div className="card-body">
                 <p>
                   <span>{note.author}</span> - <span>{format(note.date)}</span>
                 </p>
+              </div>
+              <div className="card-footer">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => this.deleteNote(note._id)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
