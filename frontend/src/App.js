@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -11,16 +12,18 @@ import CreateUser from "./components/CreateUser";
 
 function App() {
   return (
-    <Router>
-      <Navigation />
+    <AnimatePresence>
+      <Router>
+        <Navigation />
 
-      <div className="container p-4">
-        <Route path="/" exact component={NotesList} />
-        <Route path="/edit/:id" component={CreateNote} />
-        <Route path="/create" component={CreateNote} />
-        <Route path="/user" component={CreateUser} />
-      </div>
-    </Router>
+        <div className="container p-4">
+          <Route path="/" exact component={NotesList} />
+          <Route path="/edit/:id" component={CreateNote} />
+          <Route path="/create" component={CreateNote} />
+          <Route path="/user" component={CreateUser} />
+        </div>
+      </Router>
+    </AnimatePresence>
   );
 }
 
